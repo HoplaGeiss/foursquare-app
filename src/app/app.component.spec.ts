@@ -1,34 +1,39 @@
-/* tslint:disable:no-unused-variable */
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { DebugElement, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
-import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 
+import {} from 'jasmine';
+
 describe('AppComponent', () => {
+  let fixture: ComponentFixture<AppComponent>;
+  let app: DebugElement;
+  let header: HTMLElement;
+  let footer: HTMLElement;
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
       ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     });
-    TestBed.compileComponents();
+
+    fixture = TestBed.createComponent(AppComponent);
+    app = fixture.debugElement.componentInstance;
   });
 
-  it('should create the app', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
+  it('should create the app', () => {
     expect(app).toBeTruthy();
+  });
+
+  it('should render header', async(() => {
+    header = fixture.debugElement.nativeElement.querySelector('header');
+    expect(header.textContent).toContain('Technical Test');
   }));
 
-  it(`should have as title 'app works!'`, async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('app works!');
-  }));
-
-  it('should render title in a h1 tag', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('app works!');
-  }));
+  it('should render footer', () => {
+    footer = fixture.debugElement.nativeElement.querySelector('footer');
+    expect(footer.textContent).toContain('Made by Gabriel Muller');
+  });
 });
